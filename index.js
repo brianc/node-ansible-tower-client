@@ -2,18 +2,16 @@ var request = require('request')
 var _ = require('lodash')
 var async = require('async')
 
-var HOST = process.env.TOWER_HOST
-var USER = process.env.TOWER_USER
-var PASS = process.env.TOWER_PASS
-
 var runJob = module.exports = function(config, cb) {
 
-  var host = config.host || HOST
+  var host = config.host || process.env.TOWER_HOST
+  var pass = config.pass || process.env.TOWER_PASS
+  var user = config.user || process.env.TOWER_USER
+
   var protocol = process.env.TOWER_PROTOCOL || 'https'
-  var name = config.name
   var ROOT_URL = protocol + '://' + host + '/api/v1'
-  USER = config.user || USER
-  PASS = config.pass || PASS
+
+  var name = config.name
 
   var options = function(extra) {
     var url = ROOT_URL + extra.path
@@ -23,8 +21,8 @@ var runJob = module.exports = function(config, cb) {
       uri: url,
       strictSSL: false,
       auth: {
-        user: USER,
-        pass: PASS
+        user: user,
+        pass: pass
       }
     }
     return _.extend(options, extra)
