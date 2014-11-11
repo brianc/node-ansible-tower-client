@@ -1,6 +1,6 @@
 # ansible-tower-client
 
-Easy way to kick of a job from ansible tower from node.
+Easy way to kick of a job in ansible tower from a template by name.
 
 ## install
 
